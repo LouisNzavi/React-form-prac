@@ -8,7 +8,10 @@ const schema = yup.object().shape({
   lastName: yup.string().required(),
   email: yup.string().email().required(),
   password: yup.string().min(6).max(12).required,
-  confirmPassword: yup.string.oneOf([yup.ref("password"), null]),
+  confirmPassword: yup
+    .string()
+    .required("password is mandatory")
+    .oneOf([yup.ref("password")], "passwords do not match"),
 });
 
 const defaultValues = {
